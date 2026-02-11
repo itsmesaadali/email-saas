@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from "@/trpc/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <TRPCReactProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </TRPCReactProvider>
+        <Toaster richColors closeButton expand position="top-right"/>
       </body>
     </html>
     </ClerkProvider>
