@@ -2,10 +2,10 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from "@/trpc/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/lib/theme-provider";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -22,15 +22,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-      <ClerkProvider>
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <TRPCReactProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </TRPCReactProvider>
-        <Toaster richColors closeButton expand position="top-right"/>
+        <Toaster richColors closeButton expand position="bottom-center"/>
+        </ThemeProvider>
       </body>
     </html>
-    </ClerkProvider>
   );
 }
