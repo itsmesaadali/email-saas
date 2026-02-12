@@ -1,19 +1,12 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { getAurinkoAuthUrl } from "@/lib/aurinko";
+import HeroSection from "@/components/hero-section";
+
 
 export default function HomePage() {
   return (
     <>
-      <Button
-        onClick={async () => {
-          const url = await getAurinkoAuthUrl("Google");
-          window.location.href = url;
-        }}
-      >
-        Link Account
-      </Button>
+     <HeroSection/>
     </>
   );
 }
