@@ -2,14 +2,16 @@
 
 import { exchangeCodeForAccessTokens, getAccountDetails } from "@/lib/aurinko";
 import { db } from "@/server/db";
-import { auth } from "@clerk/nextjs/server"
+import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
-    const { userId } = await auth();
-    if (!userId) {
+
+    const session = await auth.api.getSession({ headers: req.headers });
+    if (!session?.user?.id) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
+    const userId = session.user.id;
     const params = req.nextUrl.searchParams;
     const status = params.get("status");
     if (status != "success") {
@@ -29,7 +31,7 @@ export const GET = async (req: NextRequest) => {
 
     const accountDetails = await getAccountDetails(token.accessToken);
 
-    await db.account.upsert(
+    await db.aurinkoAccount.upsert(
         {
             where: {
                 id: token.accountId.toString()

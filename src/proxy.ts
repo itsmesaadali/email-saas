@@ -1,23 +1,37 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { auth } from "@/lib/auth"
 
-const isPublicRoute = createRouteMatcher([
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/api/clerk/webhook(.*)",
-])
+const publicRoutes = [
+  "/",
+  "/sign-in",
+  "/sign-up",
+]
 
-export default clerkMiddleware(async (auth, req) => {
-if (!isPublicRoute(req)) {
-    await auth.protect()
+export async function proxy(req: NextRequest) {
+  const { pathname } = req.nextUrl
+
+  if (publicRoutes.some(route => pathname.startsWith(route))) {
+    return NextResponse.next()
   }
-})
 
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  const normalized: Record<string, string> = {}
+
+  req.headers.forEach((value, key) => {
+    normalized[key] = value
+  })
+
+  const session = await auth.api.getSession({
+    headers: normalized,
+  })
+
+  if (!session) {
+    return NextResponse.redirect(new URL("/sign-in", req.url))
+  }
+
+  return NextResponse.next()
 }
 
+export const config = {
+  matcher: ["/((?!_next|.*\\..*).*)"],
+}

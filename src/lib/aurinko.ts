@@ -1,11 +1,11 @@
 'use server';
 import axios from "axios";
-import { auth } from "@clerk/nextjs/server";
+import { getCurrentUserId } from "@/lib/auth";
 
 export const getAurinkoAuthUrl = async (
     serviceType: 'Google'
 ) => {
-    const { userId } = await auth();
+    const userId = await getCurrentUserId();
 
     if (!userId) {
         throw new Error("Unauthorized");

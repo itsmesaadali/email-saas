@@ -1,15 +1,19 @@
 'use client';
 
-import { ComponentExample } from "@/components/component-example";
-import { LinkAccountButton } from "@/components/link-account-button";
+import { Button } from "@/components/ui/button";
+import { getAurinkoAuthUrl } from "@/lib/aurinko";
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <div className="space-y-4 p-6">
-      <LinkAccountButton/>
- 
-
-      <ComponentExample />
-    </div>
+    <>
+      <Button
+        onClick={async () => {
+          const url = await getAurinkoAuthUrl("Google");
+          window.location.href = url;
+        }}
+      >
+        Link Account
+      </Button>
+    </>
   );
 }
