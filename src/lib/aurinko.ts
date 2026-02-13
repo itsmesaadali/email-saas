@@ -3,23 +3,37 @@ import axios from "axios";
 import { getCurrentUserId } from "@/lib/auth";
 
 export const getAurinkoAuthUrl = async (
-    serviceType: 'Google'
+  serviceType: 'Google'
 ) => {
-    const userId = await getCurrentUserId();
+  const userId = await getCurrentUserId();
 
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
 
-    const params = new URLSearchParams({
-        clientId: process.env.AURINKO_CLIENT_ID as string,
-        serviceType,
-        scope: "Mail.Read Mail.Write Mail.Send Mail.Drafts Mail.All Mail.ReadWrite",
-        responseType: "code",
-        returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/aurinko/callback`,
-    });
+  const scope = [
+    "Mail.Read",
+    "Mail.Write",
+    "Mail.Send",
+    "Mail.Drafts",
+    "Mail.All",
+    "Mail.ReadWrite",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/userinfo.email"
+  ].join(" ");
 
-    return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`;
+  const params = new URLSearchParams({
+    clientId: process.env.AURINKO_CLIENT_ID as string,
+    serviceType,
+    scope,
+    responseType: "code",
+    returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/aurinko/callback`,
+  });
+
+  console.log("Scopes being sent:", scope);
+
+  return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`;
 };
 
 
