@@ -54,7 +54,7 @@ const Vscode = (props: SVGProps<SVGSVGElement>) => (
         colorInterpolationFilters="sRGB"
         filterUnits="userSpaceOnUse"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -78,7 +78,7 @@ const Vscode = (props: SVGProps<SVGSVGElement>) => (
         colorInterpolationFilters="sRGB"
         filterUnits="userSpaceOnUse"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -102,7 +102,7 @@ const Vscode = (props: SVGProps<SVGSVGElement>) => (
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="#fff" />
-        <stop offset="1" stopColor="#fff" stop-opacity="0" />
+        <stop offset="1" stopColor="#fff" stopOpacity="0" />
       </linearGradient>
     </defs>
   </svg>
