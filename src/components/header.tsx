@@ -1,14 +1,12 @@
 'use client'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import { useScroll } from 'motion/react'
 import { NextjsIconDark } from './svgs/nextjsIconDark'
-import { NextjsLogoDark } from './svgs/nextjsLogoDark'
-import { NextjsLogoLight } from './svgs/nextjsLogoLight'
+
 
 const menuItems = [
     { name: 'Features', href: '#link' },
@@ -42,8 +40,7 @@ export const HeroHeader = () => {
                                 href="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
-                                {/* <Logo />
-                                 */}
+                                
                                  <NextjsIconDark className="w-8 h-8" />
 
                             </Link>
@@ -62,7 +59,7 @@ export const HeroHeader = () => {
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
+                                                className="text-muted-foreground hover:text-accent block duration-150">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
@@ -78,7 +75,7 @@ export const HeroHeader = () => {
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
+                                                className="text-muted-foreground hover:text-accent block duration-150">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
@@ -89,14 +86,14 @@ export const HeroHeader = () => {
                                 <Button
                                     asChild
                                     variant="outline"
-                                    size="sm">
+                                    size="lg">
                                     <Link href="/sign-in">
                                         <span>Login</span>
                                     </Link>
                                 </Button>
                                 <Button
                                     asChild
-                                    size="sm">
+                                    size="lg">
                                     <Link href="/sign-up">
                                         <span>Sign Up</span>
                                     </Link>
