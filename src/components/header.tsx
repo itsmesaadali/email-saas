@@ -6,6 +6,7 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import { useScroll } from 'motion/react'
 import { NextjsIconDark } from './svgs/nextjsIconDark'
+import { ThemeToggle } from './theme-toggle'
 
 
 const menuItems = [
@@ -83,6 +84,7 @@ export const HeroHeader = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                                <ThemeToggle />
                                 <Button
                                     asChild
                                     variant="outline"
