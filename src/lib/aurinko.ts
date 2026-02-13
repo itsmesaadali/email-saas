@@ -31,7 +31,9 @@ export const getAurinkoAuthUrl = async (
     returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/aurinko/callback`,
   });
 
-  console.log("Scopes being sent:", scope);
+  if (process.env.NODE_ENV !== 'production') {
+    console.debug("Scopes being sent:", scope);
+  }
 
   return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`;
 };
